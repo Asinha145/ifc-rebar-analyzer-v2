@@ -17,8 +17,8 @@
  *   F*A / N*A  →  Mesh layers  → blue/teal family per layer
  *   LB*        →  Loose Bar    → orange
  *   LK*        →  Link Bar     → purple
- *   VS*/HS*    →  Strut Bar    → green
- *   PRL*/PRC*  →  Preload Bar  → pink
+ *   VS/HS      →  Strut Bar    → green
+ *   PRL/PRC    →  Preload Bar  → pink
  *   Unknown    →  red
  */
 class Viewer3D {
