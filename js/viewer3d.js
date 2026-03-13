@@ -195,6 +195,10 @@ class Viewer3D {
         this.ifcapi.CloseModel(modelID);
         console.log(`[Viewer3D] Loaded ${barCount} bars, ${geomCount} geometry chunks`);
 
+        // Hide placeholder text once geometry is in the scene
+        const ph = document.getElementById('viewer-placeholder');
+        if (ph) ph.style.display = 'none';
+
         this._fitCamera();
         return this._buildDimensions();
     }

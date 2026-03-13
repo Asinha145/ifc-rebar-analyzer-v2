@@ -413,11 +413,22 @@ footer a:hover{opacity:.8;}
     width: 100%;
     height: 420px;
     display: block;
+    position: relative;
 }
 #threejs-container canvas {
     display: block;
     width: 100% !important;
     height: 100% !important;
+}
+.viewer-placeholder {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: #555;
+    font-size: .85rem;
+    pointer-events: none;
+    text-align: center;
+    white-space: nowrap;
 }
 .viewer-legend {
     display: flex;

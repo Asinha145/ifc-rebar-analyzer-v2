@@ -93,16 +93,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialise web-ifc Viewer3D (loads WASM once, re-used per file)
     if (typeof Viewer3D !== 'undefined' && typeof WebIFC !== 'undefined') {
         try {
+            document.getElementById('viewer-col').classList.remove('hidden');
+            _setViewerPlaceholder('⏳ Loading WASM engine…');
             window._viewer3d = new Viewer3D('threejs-container');
             await window._viewer3d.init();
+            _setViewerPlaceholder('Drop an IFC file to load the 3D cage');
             console.log('[main] Viewer3D ready');
         } catch (e) {
-            console.warn('[main] Viewer3D init failed — 3D preview unavailable:', e);
+            console.warn('[main] Viewer3D init failed:', e);
             window._viewer3d = null;
+            _setViewerPlaceholder('3D preview unavailable — needs HTTP server');
         }
     } else {
-        console.warn('[main] WebIFC or Viewer3D not loaded — 3D preview unavailable');
+        console.warn('[main] WebIFC or Viewer3D not loaded');
         window._viewer3d = null;
+        document.getElementById('viewer-col').classList.remove('hidden');
+        _setViewerPlaceholder('3D preview unavailable — web-ifc not loaded');
     }
 });
 
@@ -160,7 +166,6 @@ async function processFile() {
                     const dims = await window._viewer3d.loadIFC(arrayBuffer, barMap);
                     if (dims) _updateDimBoxesFromBREP(dims);
                     _buildViewerCheckboxes();
-                    document.getElementById('viewer-col').classList.remove('hidden');
                 } catch (e) {
                     console.warn('[main] BREP load error:', e);
                 }
@@ -323,6 +328,13 @@ function _updateDimBoxesFromBREP(dims) {
     document.getElementById('dim-width').textContent  = fmt(dims.width);
     document.getElementById('dim-length').textContent = fmt(dims.length);
     document.getElementById('dim-height').textContent = fmt(dims.height);
+}
+
+// ── Viewer placeholder text ────────────────────────────────────────────
+
+function _setViewerPlaceholder(msg) {
+    const el = document.getElementById('viewer-placeholder');
+    if (el) el.textContent = msg;
 }
 
 // ── 3D viewer layer checkboxes ─────────────────────────────────────────
